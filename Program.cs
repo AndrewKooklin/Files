@@ -30,6 +30,8 @@ namespace HomeWork7 {
         }
         static void WriteData()
         {
+            Console.WriteLine();
+
             string path = @"D:\Employees.txt";
 
             if (!File.Exists(path))

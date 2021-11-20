@@ -28,6 +28,7 @@ namespace HomeWork7 {
             }
             else Console.WriteLine("Программа завершена");
         }
+
         static void WriteData()
         {
             Console.WriteLine();

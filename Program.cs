@@ -10,6 +10,8 @@ namespace HomeWork7 {
 
             Start();
 
+            Console.WriteLine("\nПрограмма завершена");
+
             Console.ReadLine();
         }
 
@@ -17,73 +19,74 @@ namespace HomeWork7 {
         {
             Console.WriteLine("Введите цифру : \n 1 - для чтения данных\n 2 - для записи данных в файл");
 
+            string path = @"Employees.txt";           
+
             char input = Console.ReadKey().KeyChar;
+
             if (input == '1')
-            {
-                ReadData();
+            {                
+                    ReadData(path);                   
             }
             else if (input == '2')
             {
-                WriteData();
-            }
-            else Console.WriteLine("Программа завершена");
-        }
+                char key = 'д';
 
-        static void WriteData()
-        {
-            Console.WriteLine();
+                do {
+                    Console.WriteLine();
 
-            string path = @"Employees.txt";
+                    WriteData(path, InputData());
 
-            if (!File.Exists(path))
-            {
-                File.Create(path).Close();
-            }
-            else {
-                using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
-                {
-                    char key = 'д';
-                    do
-                    {
-                        string record = "";
+                    Console.WriteLine("Добавить нового сотрудника? н/д");
 
-                        Console.WriteLine("Введите ID сотрудника");
-                        string id = Console.ReadLine();
-
-                        string dCreate = DateTime.Now.ToString("dd.MM.yyyy hh:mm");
-
-                        Console.WriteLine("Введите Ф.И.О.");
-                        string fullName = Console.ReadLine();
-
-                        Console.WriteLine("Введите возраст");
-                        string age = Console.ReadLine();
-
-                        Console.WriteLine("Введите рост в см");
-                        string height = Console.ReadLine();
-
-                        Console.WriteLine("Введите дату рождения");
-                        string dateOfBirth = Console.ReadLine();
-
-                        Console.WriteLine("Введите место рождения");
-                        string placeOfBirth = Console.ReadLine();
-
-                        record = id + "#" + dCreate + "#" + fullName + "#" + age + "#" + height + "#" + dateOfBirth + "#" + placeOfBirth + "\n";
-                        byte[] array = System.Text.Encoding.Default.GetBytes(record);
-                        fs.Write(array, 0, array.Length);
-
-                        Console.WriteLine("Добавить нового сотрудника? н/д");
-                        key = Console.ReadKey().KeyChar;
-                    }
-                    while (char.ToLower(key) == 'д');
+                    key = Console.ReadKey().KeyChar;
                 }
+                while (char.ToLower(key) == 'д');                
+            }           
+        }
+
+        static byte[] InputData()
+        {
+                string record = "";
+
+                Console.WriteLine("Введите ID сотрудника");
+                string id = Console.ReadLine();
+
+                string dCreate = DateTime.Now.ToString("dd.MM.yyyy hh:mm");
+
+                Console.WriteLine("Введите Ф.И.О.");
+                string fullName = Console.ReadLine();
+
+                Console.WriteLine("Введите возраст");
+                string age = Console.ReadLine();
+
+                Console.WriteLine("Введите рост в см");
+                string height = Console.ReadLine();
+
+                Console.WriteLine("Введите дату рождения");
+                string dateOfBirth = Console.ReadLine();
+
+                Console.WriteLine("Введите место рождения");
+                string placeOfBirth = Console.ReadLine();
+
+                record = id + "#" + dCreate + "#" + fullName + "#" + age + "#" + height + "#" + dateOfBirth + "#" + placeOfBirth + "\n";
+                byte[] array = System.Text.Encoding.Default.GetBytes(record);
+
+                return array;          
+        }
+
+        static void WriteData(string path, byte[] array) { 
+
+            Console.WriteLine();
+
+            using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
+            {
+                fs.Write(array, 0, array.Length);
             }
         }
 
-        static void ReadData()
+        static void ReadData(string path)
         {
             Console.WriteLine();
-
-            string path = @"Employees.txt";
 
             using (FileStream fstream = File.OpenRead(path))
             {

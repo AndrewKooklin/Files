@@ -33,7 +33,7 @@ namespace HomeWork7 {
         {
             Console.WriteLine();
 
-            string path = @"D:\Employees.txt";
+            string path = @"Employees.txt";
 
             if (!File.Exists(path))
             {
@@ -83,7 +83,7 @@ namespace HomeWork7 {
         {
             Console.WriteLine();
 
-            string path = @"D:\Employees.txt";
+            string path = @"Employees.txt";
 
             using (FileStream fstream = File.OpenRead(path))
             {
